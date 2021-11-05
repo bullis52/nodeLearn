@@ -3,16 +3,16 @@ const passwordService = require('../service/passwoed.service');
 const userUtil = require('../util/user.util');
 
 module.exports = {
-    getUsers: async (req, res) => {
+    getUsers: async (req, res,next) => {
         try {
             const users = await User.find();
 
             res.json(users);
         }catch (e){
-            res.json(e);
+            next(e);
         }
     },
-    getUsersById: async (req, res) => {
+    getUsersById: async (req, res,next) => {
         try {
             const {user_id} = req.params;
             const user = await User.findById(user_id).lean();
@@ -21,10 +21,10 @@ module.exports = {
 
             res.json(userNormalize);
         }catch (e) {
-            res.json(e.message);
+            next(e);
         }
     },
-    createUser:async (req, res) => {
+    createUser:async (req, res,next) => {
         try {
             const hashedPassword = await passwordService.hash(req.body.password);
 
@@ -33,7 +33,7 @@ module.exports = {
             res.json(newUser);
 
         }catch (e) {
-            res.json(e);
+            next(e);
         }
     },
     updateUser:(req, res) => {

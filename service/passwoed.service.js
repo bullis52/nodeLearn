@@ -1,17 +1,14 @@
-/* eslint-disable arrow-body-style */
-// noinspection ES6ShorthandObjectProperty
-
 const bcrypt = require('bcrypt');
 
+const ErrorHandler = require("../errors/ErrorHandler");
+
 module.exports = {
-    hash: (password) => {
-        return bcrypt.hash(password, 10);
-    },
+    hash: (password) => bcrypt.hash(password, 10),
     compare: async (password, hashPassword) => {
         const isPasswordMatched = await bcrypt.compare(password, hashPassword);
 
-        if (isPasswordMatched) {
-            throw new Error('Wrong email or password');
+        if (!isPasswordMatched) {
+            throw new ErrorHandler('Wrong email or password',404);
         }
     }
 };

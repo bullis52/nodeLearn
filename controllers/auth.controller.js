@@ -1,7 +1,7 @@
 const User = require('../dataBase/User');
 const {userNormalizator} = require("../util/user.util");
 const {jwtService} = require('../service');
-const O_Auth = require('../dataBase/O_auth')
+const O_Auth = require('../dataBase/O_auth');
 
 module.exports = {
     login: async (req, res,next) => {

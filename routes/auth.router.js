@@ -15,6 +15,6 @@ router.post(
     authController.login
 );
 router.post('/logout', authController.logout);
-
+router.post('/refresh',authMiddleWare.checkRefreshToken,authController.login);
 
 module.exports = router;
